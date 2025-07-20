@@ -26,7 +26,9 @@ namespace FolderSize.Shadowdara
             Console.WriteLine($"*\n*  Folder Size Analyzer - Version: {Settings.version}!\n*");
             Console.WriteLine("*********************************************\n");
 
-            Console.WriteLine($"BaseDirectory: {Output.baseDirectory}\n");
+            Console.WriteLine("# Welcome to the Folder Size Analyzer!");
+
+            Console.WriteLine($"\n# BaseDirectory:\n# {Output.baseDirectory}\n");
 
             string folderPath = Ask_folder();
 
@@ -50,9 +52,10 @@ namespace FolderSize.Shadowdara
         /// </remarks>
         static string Ask_folder()
         {
+            Console.WriteLine("\n========= FIRST =========\n");
             Console.WriteLine("Please enter the path of the folder you want to analyze:\n");
-            Console.WriteLine("For Example");
-            Console.WriteLine("C:/Users/dara");
+            Console.WriteLine("* For Example");
+            Console.WriteLine("* C:/Users/dara");
             Console.Write("$: ");
             string? folderPath = Console.ReadLine();
 
