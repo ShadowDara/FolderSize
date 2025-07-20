@@ -61,7 +61,7 @@ namespace Foldersize.Shadowdara.src
                 // In Liste einfügen
                 liste.Add(new FolderList
                 {
-                    folderPath = ordner,
+                    FolderPath = ordner,
                     SizeInBytes = groesseInBytes
                 });
             }

@@ -13,9 +13,9 @@ namespace Foldersize.Shadowdara.src
     /// </summary>
     /// <property name="folderPath">The path of the folder.</property>
     /// <property name="SizeInBytes">The size of the folder in bytes.</property>
-    interface FolderList
+    class FolderList
     {
-        public string? folderPath { get; set; }
+        public string? FolderPath { get; set; }
         public long SizeInBytes { get; set; }
     }
 }
