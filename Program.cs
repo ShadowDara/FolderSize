@@ -11,6 +11,10 @@ using System.Text.Json;
 namespace FolderSize.Shadowdara
 {
     #region Main
+    /// <summary>
+    /// MainClass is the entry point for the Folder Size Analyzer application.
+    /// It initializes settings, displays version information, and starts folder analysis.
+    /// </summary>
     class MainClass
     {
         static void Main(string[] args)
@@ -18,21 +22,38 @@ namespace FolderSize.Shadowdara
             // Checking Settings...
             // Settings.Read();
 
-            Console.WriteLine("******************************************");
-            Console.WriteLine($"\nFolder Size Analyzer - Version: {Settings.version}!\n");
+            Console.WriteLine("*********************************************");
+            Console.WriteLine($"*\n*  Folder Size Analyzer - Version: {Settings.version}!\n*");
+            Console.WriteLine("*********************************************\n");
 
-            //Console.WriteLine($"BaseDirectory: {Output.baseDirectory}");
+            Console.WriteLine($"BaseDirectory: {Output.baseDirectory}\n");
 
-            //Ask_folder();
-            string folderPath = Output.baseDirectory;
+            string folderPath = Ask_folder();
+
+            // return of Ask_folder() can be null if the user cancels or
+            // enters an invalid path
+            if (folderPath == null)
+            {
+                Console.WriteLine("Exiting!");
+                Console.ReadLine();
+                return;
+            }
+            //string folderPath = Output.baseDirectory;
             Run(folderPath);
         }
 
         /// <summary>
-        /// Asks the user for a folder path and confirms if they want to analyze it.
-        static void Ask_folder()
+        /// Asks the user to input a folder path, confirms their choice, and initiates analysis if confirmed.
+        /// </summary>
+        /// <remarks>
+        /// Validates folder existence and allows cancellation or access to settings.
+        /// </remarks>
+        static string Ask_folder()
         {
             Console.WriteLine("Please enter the path of the folder you want to analyze:\n");
+            Console.WriteLine("For Example");
+            Console.WriteLine("C:/Users/dara");
+            Console.Write("$: ");
             string? folderPath = Console.ReadLine();
 
             Console.WriteLine($"\nYour enterred Folder: {folderPath}");
@@ -47,16 +68,24 @@ namespace FolderSize.Shadowdara
                 if (!Directory.Exists(folderPath))
                 {
                     Console.WriteLine($"Folder '{folderPath}' does not exist.");
-                    return;
+                    return null;
                 }
-                Run(folderPath);
+                else
+                {
+                    return folderPath;
+                }
             }
             else
             {
                 Console.WriteLine("Folder analysis cancelled.");
             }
+            return null;
         }
 
+        /// <summary>
+        /// Runs the folder analysis for the specified path, collects folder size data, creates output folders, and generates JSON output.
+        /// </summary>
+        /// <param name="folderPath">The path of the folder to analyze.</param>
         static void Run(string folderPath)
         {
             Console.WriteLine($"Analyzing folder: {folderPath}");
@@ -73,8 +102,15 @@ namespace FolderSize.Shadowdara
     #endregion
 
     #region Analyser
+    /// <summary>
+    /// Analyser provides methods for searching folders and calculating their sizes recursively.
+    /// </summary>
     class Analyser
     {
+        /// <summary>
+        /// Recursively searches for files and subfolders in the specified directory and prints file paths.
+        /// </summary>
+        /// <param name="ordner">The directory to search.</param>
         public static void SearchFolder(string ordner)
         {
             // Alle Dateien im aktuellen Ordner
@@ -90,6 +126,13 @@ namespace FolderSize.Shadowdara
             }
         }
 
+        /// <summary>
+        /// Recursively calculates the total size of files in the specified directory and its subdirectories.
+        /// Adds folder size information to the provided list.
+        /// </summary>
+        /// <param name="ordner">The directory to analyze.</param>
+        /// <param name="liste">The list to store folder size information.</param>
+        /// <returns>The total size in bytes of the directory and its subdirectories.</returns>
         public static long DurchsucheUndBerechneGroesse(string ordner, List<FolderList> liste)
         {
             long groesseInBytes = 0;
@@ -112,8 +155,8 @@ namespace FolderSize.Shadowdara
                 // In Liste einfügen
                 liste.Add(new FolderList
                 {
-                    folerPath = ordner,
-                    SizeinBytes = groesseInBytes
+                    folderPath = ordner,
+                    SizeInBytes = groesseInBytes
                 });
             }
             catch (Exception ex)
@@ -125,6 +168,9 @@ namespace FolderSize.Shadowdara
         }
     }
 
+    /// <summary>
+    /// Settings manages application configuration and version information.
+    /// </summary>
     class Settings
     {
         public static string version = "1.0.0";
@@ -146,10 +192,16 @@ namespace FolderSize.Shadowdara
     #endregion
 
     #region Output
+    /// <summary>
+    /// Output handles creation of output directories and files for different formats (HTML, JSON, txt, MD).
+    /// </summary>
     class Output
     {
         public static string baseDirectory = AppContext.BaseDirectory;
 
+        /// <summary>
+        /// Creates output folders for HTML, JSON, txt, and MD formats if they do not already exist.
+        /// </summary>
         public static void Create_output_folders()
         {
             // HTML
@@ -177,15 +229,19 @@ namespace FolderSize.Shadowdara
             }
         }
 
+        /// <summary>
+        /// Prompts the user to choose the output format.
+        /// </summary>
         public static void Ask_how()
         {
             Console.WriteLine("How do you want to have the output?");
         }
 
         /// <summary>
-        /// Create a new file with the content in the folder path direction
-        /// The end of the path is the file name
-        /// function does not override if the files exists
+        /// Creates a new file with the specified content at the given path, if the file does not already exist.
+        /// </summary>
+        /// <param name="path">The file path including the file name.</param>
+        /// <param name="content">The content to write to the file.</param>
         public static void create_file(string path, string content)
         {
             // Checks if the files already exists
@@ -203,15 +259,22 @@ namespace FolderSize.Shadowdara
     }
     #endregion
 
-    #region output formats
+    #region output fo
     class Raw
     { }
 
     class HTML
     { }
 
+    /// <summary>
+    /// JSON provides functionality to serialize data and write it to a JSON file.
+    /// </summary>
     class JSON
     {
+        /// <summary>
+        /// Serializes the provided data to JSON format and writes it to "ordnerInfos.json".
+        /// </summary>
+        /// <param name="data">The data to serialize.</param>
         public static void create(string data)
         {
             string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
@@ -227,13 +290,17 @@ namespace FolderSize.Shadowdara
     { }
 
     class Test
-    {}
+    { }
 
-    // data structure for the size array
+    /// <summary>
+    /// FolderList is a data structure representing a folder and its size in bytes.
+    /// </summary>
+    /// <property name="folderPath">The path of the folder.</property>
+    /// <property name="SizeInBytes">The size of the folder in bytes.</property>
     class FolderList
     {
-        public string? folerPath { get; set; }
-        public long SizeinBytes { get; set; }
+        public string? folderPath { get; set; }
+        public long SizeInBytes { get; set; }
     }
     #endregion
 }
