@@ -2,6 +2,7 @@
 /// Description: A simple C# console application to calculate the size of folders
 /// Author: Shadowdara
 /// Version: 1.0.0
+/// License: Appache 2.0 Shadowdara 2025
 
 using System;
 using System.IO;
@@ -21,19 +22,32 @@ namespace FolderSize.Shadowdara
         {
             // Checking Settings...
             // Settings.Read();
+            
+            title();
 
-            Console.WriteLine("*********************************************");
-            Console.WriteLine($"*\n*  Folder Size Analyzer - Version: {Settings.version}!\n*");
-            Console.WriteLine("*********************************************\n");
+            Console.WriteLine($"Folder Size Analyzer - Version: {Settings.version}!\n");
+            Console.WriteLine("by Shadowdara");
 
-            Console.WriteLine("# Welcome to the Folder Size Analyzer!");
+            Console.WriteLine("Welcome to the Folder Size Analyzer!");
 
             Console.WriteLine($"\n# BaseDirectory:\n# {Output.baseDirectory}\n");
+
+            Console.Write("Do you want to enter the Menu? [y]: ");
+            String answer = Console.ReadLine() ?? string.Empty;
+            
+            if (answer.ToLower() == "y" || answer.ToLower() == "yes")
+            {
+                Menu();
+            }
 
             string folderPath = Ask_folder();
 
             // return of Ask_folder() can be null if the user cancels or
             // enters an invalid path
+            //
+            // TODO:
+            // Change from exiting to a loop that allows the user to
+            // re-enter the program or change settings
             if (folderPath == null)
             {
                 Console.WriteLine("Exiting!");
@@ -44,6 +58,75 @@ namespace FolderSize.Shadowdara
             Run(folderPath);
         }
 
+        public static void Menu()
+        {
+            title();
+            Console.WriteLine("======= MENU =======");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("1. Settings");
+            Console.WriteLine("2. LICENSE");
+            Console.WriteLine("3. Infos");
+            Console.WriteLine("4. go back and start analysing");
+            Console.Write("\nPlease select an option (0-4): ");
+            String answer = Console.ReadLine() ?? string.Empty;
+
+            if (answer == "0")
+            {
+                Console.WriteLine("Exiting!");
+                Console.ReadLine();
+                return;
+            }
+            else if (answer == "1")
+            {
+                // Open Settings
+            }
+            else if (answer == "2")
+            {
+                Console.WriteLine("LICENSE");
+                Console.WriteLine("This project is licensed under the Apache License 2.0.");
+                Console.WriteLine("For more information, please visit: https://www.apache.org/licenses/LICENSE-2.0");
+                Console.WriteLine("Created by Shadowdara in 2025.");
+                Console.ReadLine();
+            }
+            else if (answer == "3")
+            {
+                Console.WriteLine("Info");
+                Console.WriteLine("This is a simple C# console application to calculate the size of folders.");
+                Console.ReadLine();
+            }
+            else if (answer == "4")
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please try again.");
+            }
+        }
+
+        public static void title()
+        {
+            Console.Clear();
+            Console.WriteLine(
+                "'########::'#######::'##:::::::'########::'########:'########::\n" +
+                " ##.....::'##.... ##: ##::::::: ##.... ##: ##.....:: ##.... ##:\n" +
+                " ##::::::: ##:::: ##: ##::::::: ##:::: ##: ##::::::: ##:::: ##:\n" +
+                " ######::: ##:::: ##: ##::::::: ##:::: ##: ######::: ########::\n" +
+                " ##...:::: ##:::: ##: ##::::::: ##:::: ##: ##...:::: ##.. ##:::\n" +
+                " ##::::::: ##:::: ##: ##::::::: ##:::: ##: ##::::::: ##::. ##::\n" +
+                " ##:::::::. #######:: ########: ########:: ########: ##:::. ##:\n" +
+                "..:::::::::.......:::........::........:::........::..:::::..::\n" +
+                ":'######::'####:'########:'########::::::::::::::::::::::::::::\n" +
+                "'##... ##:. ##::..... ##:: ##.....:::::::::::::::::::::::::::::\n" +
+                " ##:::..::: ##:::::: ##::: ##::::::::::::::::::::::::::::::::::\n" +
+                ". ######::: ##::::: ##:::: ######::::::::::::::::::::::::::::::\n" +
+                ":..... ##:: ##:::: ##::::: ##...:::::::::::::::::::::::::::::::\n" +
+                "'##::: ##:: ##::: ##:::::: ##::::::::::::::::::::::::::::::::::\n" +
+                ". ######::'####: ########: ########::::::::::::::::::::::::::::\n" +
+                ":......:::....::........::........:::::::::::::::::::::::::::::\n"
+            );
+        }
+
         /// <summary>
         /// Asks the user to input a folder path, confirms their choice, and initiates analysis if confirmed.
         /// </summary>
@@ -52,16 +135,16 @@ namespace FolderSize.Shadowdara
         /// </remarks>
         static string Ask_folder()
         {
-            Console.WriteLine("\n========= FIRST =========\n");
-            Console.WriteLine("Please enter the path of the folder you want to analyze:\n");
+            title();
+            Console.WriteLine("Start Analizing");
+            Console.WriteLine("\nPlease enter the path of the folder you want to analyze:\n");
             Console.WriteLine("* For Example");
             Console.WriteLine("* C:/Users/dara");
             Console.Write("$: ");
             string? folderPath = Console.ReadLine();
 
             Console.WriteLine($"\nYour enterred Folder: {folderPath}");
-            Console.WriteLine("\nDo you want to analyze this folder? - enter to continue, (n) to cancel");
-            Console.WriteLine("or $$settings to open the settings");
+            Console.Write("\nDo you want to analyze this folder? - enter to continue, (n) to cancel: ");
 
             string? response = Console.ReadLine();
 
@@ -179,7 +262,7 @@ namespace FolderSize.Shadowdara
         public static string version = "1.0.0";
 
         public static void Create()
-        { }
+        {}
 
         static bool Check()
         {
@@ -189,7 +272,7 @@ namespace FolderSize.Shadowdara
         public static void Read()
         {
             if (Check())
-            { }
+            {}
         }
     }
     #endregion
