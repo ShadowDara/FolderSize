@@ -1,0 +1,189 @@
+# Visual Studio 2015+
+.vs/
+*.suo
+*.user
+*.pdb
+*.psess
+*.vssscc
+*.vspscc
+*.vspcc
+*.scc
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.safetynet
+*.tlog
+*.log
+*.bak
+*.cache
+*.obj
+*.resources
+*.sdf
+*.tmp
+*.o
+*.lo
+*.la
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+*.ocx
+*.fxp
+*.ilk
+*.metagen
+*.pgc
+*.pgd
+*.rsp
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.vsix
+*.webtest
+*.testsettings
+*.trx
+*.vsdps
+*.vsdi
+*.vsdps
+*.vsi
+*.vsn
+*.codeanalysisreport.xml
+*.bin
+*.obj
+*.test
+*.publish
+*.sqlproj.user
+*.dbmdl
+*.jfm
+*.pfx
+*.snk
+*.xml
+*.rdlc
+*.deploy
+
+# Build Results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# Rider
+.idea/
+*.sln.DotSettings.user
+*.csproj.user
+
+# VS Code (Optional, wenn du es verwendest)
+.vscode/
+
+# NuGet packages
+packages/
+*.nupkg
+# NuGet Tooling
+.nuget/
+# The client-side compilers such-as EFC, TypeScript and SASS may need to run on the build server in addition to the developer's machine.
+# But for now, we will add the .NET tooling.
+.tools/
+
+# Project files and folders
+*.csproj.user
+*.userprefs
+*.suo
+*.tmp
+*.cache
+*.bak
+*.old
+*.obj
+*.bin
+*.vsix
+*.zip
+*.rar
+*.7z
+*.gz
+*.tar
+*.log
+*.sql
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.pdf
+
+# ASP.NET Core
+/wwwroot/lib/
+/wwwroot/dist/
+appsettings*.json
+appsettings.json.user
+appsettings.Development.json
+# User-Secrets (für lokale Entwicklung, nicht ins Repo)
+.vscode/
+.vs/
+
+# Kestrel SSL certs
+.devcerts/
+
+# Local SQL Server Express DB files
+*.mdf
+*.ldf
+
+# Azure Tools
+*.publishsettings
+*.sublime-project
+*.sublime-workspace
+
+# Ignore generated files for unit tests
+*.DotSettings
+*.DotSettings.user
+
+# DotNet Core and .NET 5+
+# The 'bin' and 'obj' directories are where compiled code and intermediate build artifacts are stored.
+# They should not be committed to source control.
+[Bb]in/
+[Oo]bj/
+
+# Other generated files
+*.resharper
+*.resharper.user
+*.userprefs
+*.vspscc
+*.vsscc
+*.suo
+*.webtest
+*.testsettings
+*.trx
+*.fxcop
+*.fxcop.local
+*.licx
+
+# Package Manager
+# allow packages folder to be committed if desired
+!packages/
+# but ignore the contents of the packages folder
+packages/*
+
+# Azure Functions
+local.settings.json
+
+# If you're using npm/yarn/pnpm in your project
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Mac specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux specific files
+.directory
+
+# Visual Studio Code specific files (re-iterated for clarity)
+.vscode/
+
+ordnerInfos.json
